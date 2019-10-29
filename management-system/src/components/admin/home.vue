@@ -25,11 +25,11 @@
                             <i class="el-icon-user"></i>
                             <span slot="title">基本资料</span>
                         </el-menu-item>
-                        <el-menu-item index="">
+                        <el-menu-item index="/admin/course">
                             <i class="el-icon-reading"></i>
                             <span slot="title">课程安排</span>
                         </el-menu-item>
-                        <el-menu-item index="">
+                        <el-menu-item index="/admin/count">
                             <i class="el-icon-setting"></i>
                             <span slot="title">账号管理</span>
                         </el-menu-item>
@@ -54,6 +54,10 @@
                         <el-breadcrumb-item :to="{ path: '/Home' }">当前位置</el-breadcrumb-item>
                         <el-breadcrumb-item v-text="this.$router.currentRoute.name"></el-breadcrumb-item>
                     </el-breadcrumb>
+                    <!-- keep-alive可以防止当回到该页面时传入的数据丢失的问题 -->
+                    <keep-alive>
+                        <router-view v-if="this.$route.meta.keepAlive"></router-view>
+                    </keep-alive>
                     <!-- 下面这个router-view是切换的模块区域，且给加了动画 -->
                     <transition mode="out-in">
                         <router-view v-if="!this.$route.meta.keepAlive"></router-view>

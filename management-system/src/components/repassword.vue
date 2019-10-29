@@ -56,8 +56,8 @@ data() {
     },
     methods:{
        changPassword(){
-           if(this.form.newpassword == this.form.checkpassword){
-               this.$router.push({path: '/login'})
+          if(this.form.newpassword == this.form.checkpassword != null){
+            this.$router.push({path: '/login'})
             this.$message({type: 'success',message: '密码更改成功，请重新登录！'})
            }
        }, 

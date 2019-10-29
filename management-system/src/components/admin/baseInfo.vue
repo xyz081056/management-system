@@ -1,8 +1,5 @@
 <template>
   <div class="baseInfo">
-    <div>
-      <el-button type="primary" icon="el-icon-edit" circle class="edit" @click="editInfo"></el-button>
-    </div>
     <div class="main">
       <div class="headPortrait">
         <img src="../../assets/beaut.jpg" style="width:150px;height:180px">
@@ -15,6 +12,7 @@
         <p>教龄：{{ tableData.teachYear }}</p>
       </div>
       <hr class="info">
+      <p class="warning">如有错误，请联系学校系统管理员。联系电话：18582370568</p>
     </div>
   </div>
 </template>
@@ -26,7 +24,7 @@ export default {
       tableData:'',      
     }
   },
-   mounted(){
+   created(){
       this.get()
    },
   methods:{
@@ -42,12 +40,7 @@ export default {
 }
 </script>
 
-<style>
-.edit{
-  position: absolute;
-  bottom: 40px;
-  right: 20px;
-}
+<style lang="stylus" scoped>
 .main{
   margin-top:20px; 
   height: 520px;
@@ -75,5 +68,10 @@ export default {
   top: 200px;
   left: 2%;
   width: 97%;
+}
+.warning{
+  position: absolute;
+  top: 210px;
+  right: 2%;
 }
 </style>
