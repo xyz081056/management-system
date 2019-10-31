@@ -73,5 +73,6 @@ export default {
   position: absolute;
   top: 210px;
   right: 2%;
+  color:red;
 }
 </style>

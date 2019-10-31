@@ -1,5 +1,5 @@
 <template>
-    <div class="home">
+    <div class="adminhome">
        <el-container class="home-container">
             <el-header class="home-header" height="50px" width="100%">
                 <img src="../../assets/logo.jpg" style="height:50px;width:50px;border-radius: 50%;margin-left:80px">
@@ -27,17 +27,17 @@
                         </el-menu-item>
                         <el-menu-item index="/admin/course">
                             <i class="el-icon-reading"></i>
-                            <span slot="title">课程安排</span>
+                            <span slot="title">课程管理</span>
                         </el-menu-item>
                         <el-menu-item index="/admin/count">
                             <i class="el-icon-setting"></i>
-                            <span slot="title">账号管理</span>
+                            <span slot="title">学生信息</span>
                         </el-menu-item>
-                        <el-menu-item index="">
+                        <el-menu-item index="/admin/active">
                             <i class="el-icon-baseball"></i>
-                            <span slot="title">院系活动</span>
+                            <span slot="title">活动管理</span>
                         </el-menu-item>
-                        <el-menu-item index="">
+                        <el-menu-item index="/admin/message">
                             <i class="el-icon-message"></i>
                             <span slot="title"> 
                                 消息管理        

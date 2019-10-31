@@ -26,7 +26,7 @@
                 </el-submenu>
             </el-submenu>
         </el-menu>
-        <el-input v-model="input" placeholder="请输入搜索关键字" style="width:20%;margin-left:5%"></el-input>
+        <el-input v-model="search" placeholder="请输入搜索关键字" style="width:20%;margin-left:5%"></el-input>
         <div style="width:45%;margin-left:25%;">
             <el-button type="primary">
                 <i class="el-icon-plus"></i>
@@ -105,7 +105,7 @@
         activeIndex: '1',
         tableData: [{
           date: '201612030124',
-          name: '王小虎',
+          name: '天天',
           province: '计算科学',
           city: '四川省广元市朝天区陈家乡青坪村六组17号',
           address: '510812199610081056',
@@ -146,7 +146,7 @@
           address: '上海市普陀区金沙江路 1517 弄',
           zip: 200333
         }],
-        input:'',
+        search:'',
         message:'请选择专业班级'
       }
     },
@@ -157,13 +157,13 @@
       handleSelect(keyPath) {
           this.message = keyPath
         // console.log(keyPath);
-      }
-    },
+      },
+    }
   }
 </script>
-<style lang="stylus">
+<style>
 .el-menu--horizontal>.el-submenu .el-submenu__title{
-    height: 40px;
-    line-height: 40px;
+  height:40px;
+  line-height:40px;
 }
 </style>
