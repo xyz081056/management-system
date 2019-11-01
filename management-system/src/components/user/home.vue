@@ -7,7 +7,7 @@
                     <router-link to="/login" style="color:white;text-decoration:none">重新登录</router-link>
                 </i>
                 <i class="el-icon-edit">
-                    <router-link to="/repassword" style="color:white;text-decoration:none">修改密码</router-link>
+                    <a  @click="put" style="color:white;text-decoration:none;cursor:pointer">修改密码</a>
                 </i>
                 <i class="el-icon-smile">🙂听风的鱼</i>
                 <i class="el-icon-date" align="right" style="margin-right:40px">
@@ -45,7 +45,7 @@
                             <i class="el-icon-coffee-cup"></i>
                             <span slot="title">学生兼职</span>
                         </el-menu-item>
-                        <el-menu-item index="">
+                        <el-menu-item index="/user/attachBar">
                             <i class="el-icon-chat-dot-square"></i>
                             <span slot="title">学生贴吧</span>
                         </el-menu-item>
@@ -61,7 +61,7 @@
                 </div>
                 </el-aside>
             <el-container>
-                <el-main>
+                <el-main style="background-color:rgba(87,250,255,0.05)">
                     <el-breadcrumb separator-class="el-icon-arrow-right">
                         <el-breadcrumb-item :to="{ path: '/Home' }">当前位置</el-breadcrumb-item>
                         <el-breadcrumb-item v-text="this.$router.currentRoute.name"></el-breadcrumb-item>
@@ -88,6 +88,7 @@ export default {
       tableData:'',
       number:'1',
       flg:false,
+      rode:'/login'
     }
   },
    computed: {
@@ -128,6 +129,9 @@ export default {
             duration: 10000
         });
         }
+    },
+    put(){
+       this.$router.push({path: '/repassword',query: { id:1 }})
     }
   },
 }
@@ -160,13 +164,7 @@ export default {
     position: relative;
     top:0px;
   }
-  .home-main {
-    background-color: #fff;
-    color: #000;
-    text-align: center;
-    margin: 0px;
-    padding: 0px;
-  }
+ 
   /* 给路由切换加动画 */
   .v-enter,.v-leave-to{
            opacity: 0;

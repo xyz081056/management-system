@@ -16,12 +16,14 @@ import teachAppraise from '@/components/user/teachAppraise'
 import trade from '@/components/user/trade'
 import partTimeJob from '@/components/user/partTimeJob'
 import userMessage from '@/components/user/message'
-
+import attachBar from '@/components/user/attach'
 
 // 待解决问题 1、路由跳转过程中要对参数进行加密
 // 待解决问题 2、路由拦截，必须经过登录才能实现页面的访问 
 // 待解决问题 3、登录和修改密码空白时，不会报错
 // 待解决问题 4、边输入边搜索、增加、删除、修改功能
+// 待解决问题 5、如何给单个组件设置背景图片，以及将element-ui下的表格、按钮、输入框的背景颜色设为无色透明
+
 Vue.use(Router)
 
 export default new Router({
@@ -117,12 +119,14 @@ export default new Router({
           component:partTimeJob
         },
         {
+          path:'/user/attachBar',
+          name:'学生贴吧',
+          component:attachBar
+        },{
           path:'/user/message',
           name:'消息通知',
           component:userMessage
-        },
-        
-      ]
+        }]
     },
   ],
   mode:"history" //去掉hash模式，换用history

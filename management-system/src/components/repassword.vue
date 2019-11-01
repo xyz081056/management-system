@@ -51,18 +51,30 @@ data() {
                 oldpassword: [{ required: true, message: '请输入原密码', trigger: 'blur' }],
                 newpassword: [{ required: true, validator: validatePass, trigger: 'blur' }],
                 checkpassword: [{  required: true, validator: validatePass2, trigger: 'blur' }]
-            }
+            },
+            ids:''
         }
     },
+    mounted(){
+      this.get()
+   },
     methods:{
        changPassword(){
           if(this.form.newpassword == this.form.checkpassword != null){
             this.$router.push({path: '/login'})
-            this.$message({type: 'success',message: '密码更改成功，请重新登录！'})
+            this.$message({type: 'success',message: '密码更改成功，请重新登录！',center: true})
            }
        }, 
+        get(){
+        this.ids = this.$route.query.id
+        console.log(this.id)
+      },
        reHome(){
+         if(this.ids == 1){
+             this.$router.push({path: '/userHome'})
+         }else{
             this.$router.push({path: '/adminHome'})
+         }
        }
     }
 }

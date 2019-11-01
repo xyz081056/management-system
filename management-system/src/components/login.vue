@@ -44,12 +44,12 @@ data() {
         submit(){
             if(this.form.username == 'user'){
                 this.$router.push({path: '/userHome',query: this.data})
-                this.$message({type: 'success',message: '登录成功!'})
+                this.$message({type: 'success',message: '登录成功!',center: true})
             }else if(this.form.username == 'admin'){
                 this.$router.push({path: '/adminHome',query: this.data})
-                this.$message({type: 'success',message: '登录成功!'})
+                this.$message({type: 'success',message: '登录成功!',center: true})
             }else{
-                 this.$message({type: 'warning',message: '登录失败!'});
+                 this.$message({type: 'warning',message: '登录失败!',center: true});
             }   
         },
         // 重置

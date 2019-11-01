@@ -19,7 +19,8 @@
                 ref="multipleTable"
                 :data="tableData"
                 tooltip-effect="dark"
-                style="width: 100%"
+                stripe
+                highlight-current-row
                 @selection-change="handleSelectionChange">
                 <el-table-column
                 type="selection"
@@ -44,7 +45,7 @@
                     fixed="right"
                     label="操作">
                         <template slot-scope>
-                            <el-button type="info" size="small">查看</el-button>
+                            <el-button type="info" @click="look" size="small">查看</el-button>
                             <el-button type="danger" size="small">删除</el-button>
                         </template>
                     </el-table-column>
@@ -113,6 +114,8 @@ export default {
             });
             });
         },
+        look(){
+        }
     }
 }
 </script>
