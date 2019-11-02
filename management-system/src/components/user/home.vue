@@ -4,7 +4,7 @@
             <el-header class="home-header" height="50px" width="100%">
                 <img src="../../assets/logo.jpg" style="height:50px;width:50px;border-radius: 50%;margin-left:80px">
                 <i class="el-icon-user-solid" style="margin-left:40px">
-                    <router-link to="/login" style="color:white;text-decoration:none">重新登录</router-link>
+                    <router-link to="/" style="color:white;text-decoration:none">重新登录</router-link>
                 </i>
                 <i class="el-icon-edit">
                     <a  @click="put" style="color:white;text-decoration:none;cursor:pointer">修改密码</a>

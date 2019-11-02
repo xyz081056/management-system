@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import store from '../store'
 export default {
 data() {
         return {
@@ -43,9 +44,17 @@ data() {
     methods:{
         submit(){
             if(this.form.username == 'user'){
+                store.commit('login',{
+                    account:this.form.username,
+                    password:this.form.password
+                })
                 this.$router.push({path: '/userHome',query: this.data})
                 this.$message({type: 'success',message: '登录成功!',center: true})
             }else if(this.form.username == 'admin'){
+                 store.commit('login',{
+                    account:this.form.username,
+                    password:this.form.password
+                })//this.$store.commit('mutations方法名',值)
                 this.$router.push({path: '/adminHome',query: this.data})
                 this.$message({type: 'success',message: '登录成功!',center: true})
             }else{

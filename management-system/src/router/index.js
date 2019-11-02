@@ -2,8 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import login from '@/components/login'
 import repassword from '@/components/repassword'
-import adminHome from '@/components/admin/home'
 import userHome from '@/components/user/home'
+import adminHome from '@/components/admin/home'
 import baseInfo from '@/components/admin/baseInfo'
 import course from '@/components/admin/course'
 import count from '@/components/admin/count'
@@ -27,16 +27,12 @@ import attachBar from '@/components/user/attach'
 Vue.use(Router)
 
 export default new Router({
+  base:'/',
   routes: [
     //登录
     {
-      path: '/login',
-      component:login,
-    },
-    //重定向
-    {
       path: '/',
-      redirect:'/login'
+      component:login,
     },
     // 修改密码
     {
