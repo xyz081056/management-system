@@ -3,38 +3,56 @@
     <el-table
         :data="tableData"
         border
-        height="545px"
+        
         style="width: 100%;margin-top:5px">
         <el-table-column
         prop="date"
         width="100">
         </el-table-column>
         <el-table-column
-        prop="name"
+        prop="one"
         label="第一大节">
         </el-table-column>
         <el-table-column
-        prop="address"
+        prop="two"
         label="第二大节">
         </el-table-column>
         <el-table-column
-        prop="address"
+        prop="three"
         label="第三大节">
         </el-table-column>
         <el-table-column
-        prop="address"
+        prop="four"
         label="第四大节">
         </el-table-column>
         <el-table-column
-        prop="address"
+        prop="five"
         label="晚一">
         </el-table-column>
         <el-table-column
-        prop="address"
+        prop="six"
         label="晚二">
         </el-table-column>
     </el-table>
-    <el-button type="primary" icon="el-icon-edit" circle class="edit" @click="editInfo"></el-button>
+    <el-button type="primary" icon="el-icon-edit" circle class="edit" @click="dialogFormVisible = true"></el-button>
+  <el-dialog title="添加课程" :visible.sync="dialogFormVisible">
+    <el-form disabled>
+      <el-form-item label="选择时间" style="text-align:left;width:350px" :label-width='formLabelWidth'>
+        <el-input v-model="date" autocomplete="off"></el-input>
+      </el-form-item>
+      <el-form-item label="选择节数" :label-width="formLabelWidth">
+        <el-input v-model="name" autocomplete="off" ></el-input>
+      </el-form-item>
+      <el-form-item label="课程内容" :label-width="formLabelWidth">
+        <el-input type="textarea" v-model="desc" :rows="5"></el-input>
+      </el-form-item>
+      
+    </el-form>
+    <div slot="footer" class="dialog-footer">
+      <el-button @click="dialogFormVisible = false">取 消</el-button>
+      <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+    </div>
+</el-dialog>
   </div>
 </template>
 
@@ -44,33 +62,66 @@ export default {
         return {
           tableData: [{
             date: '周一',
-            name: '数学分析（高云柱） 文科楼101',
-            address: '上海市普陀区金沙江路 1518 弄'
+            one: '数学分析（高云柱） 文科楼101',
+            two: '',
+            three:'',
+            four:'',
+            five:'',
+            six:''
           }, {
             date: '周二',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1517 弄'
+            one: '',
+            two: '',
+            three:'数学分析（高云柱） 文科楼101',
+            four:'',
+            five:'',
+            six:''
           }, {
             date: '周三',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1519 弄'
+            one: '',
+            two: '',
+            three:'',
+            four:'',
+            five:'数学分析（高云柱） 文科楼101',
+            six:''
           }, {
             date: '周四',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1516 弄'
+            one: '',
+            two: '数学分析（高云柱） 文科楼101',
+            three:'',
+            four:'',
+            five:'',
+            six:''
           },{
             date: '周五',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1516 弄'
+            one: '',
+            two: '',
+            three:'',
+            four:'',
+            five:'',
+            six:''
           },{
             date: '周六',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1516 弄'
+            one: '',
+            two: '',
+            three:'',
+            four:'',
+            five:'',
+            six:''
           }, {
             date: '周日',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1516 弄'
-          }]
+            one: '',
+            two: '',
+            three:'',
+            four:'',
+            five:'',
+            six:''
+          }],
+        dialogFormVisible: false,
+        formLabelWidth: '120px',
+        date:'',
+        name:'',
+        desc:'',
         }
       },
       methods:{

@@ -3,3 +3,4 @@ export default{
         state.userInfo = v
     }
 }
+// store.commit是修改数据

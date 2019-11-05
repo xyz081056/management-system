@@ -14,6 +14,7 @@ Vue.config.productionTip = false
 
 Vue.prototype.$store = store
 
+// 路由守卫配合vuex使用
 router.beforeEach((to,from,next) => {
   if(store.state.userInfo || to.path === '/'){
     next()
@@ -31,5 +32,10 @@ new Vue({
   router,
   store,
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
+  computed:{
+    login(){
+      return this.$store.state.userInfo
+    }
+  }
 })

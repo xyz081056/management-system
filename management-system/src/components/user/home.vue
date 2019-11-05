@@ -116,8 +116,9 @@ export default {
    },
    methods:{
     get(){
-      this.tableData = this.$route.query
-      console.log(this.tableData)
+    //   this.tableData = this.$store.state.userInfo
+    //   console.log(this.$store.state.userInfo)
+    //   console.log(this.tableData)
     },
     num(){
         if(this.number > 0){
