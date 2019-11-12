@@ -12,7 +12,7 @@
                     <el-input type="password" v-model="form.password" style="width:300px;padding:0px"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" style="margin-right:40px" @click="submit(form)">登录</el-button>
+                    <el-button type="primary" style="margin-right:40px" @click="submit('form')">登录</el-button>
                     <el-button  @click="resetForm('form')">重置</el-button>
                 </el-form-item>
             </el-form>
@@ -30,14 +30,6 @@ data() {
                 username:'',
                 password:'',
             },
-            data:{
-                name:'萤火之森',
-                academy:'自然科学院',
-                major:'妖怪与精灵',
-                professional:'精灵大学士',
-                teachYear:'10年'
-
-            },
             rules: {
                 username: [{ required: true, message: '请输入账号即学号或者教师编号', trigger: 'blur' }],
                 password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
@@ -45,33 +37,29 @@ data() {
         }
     },
     methods:{
-        submit(){
-            if(this.form.username == 'user'&&this.form.password == '123'){
+        submit(form){
+            this.$refs[form].validate((valid) => {
+            if (valid && this.form.username == 'user' && this.form.password == '123') {
                 store.commit('login',{
-                    name:'萤火之森',
-                    academy:'自然科学院',
-                    major:'妖怪与精灵',
-                    professional:'精灵大学士',
-                    teachYear:'10年'
+                   username : this.form,
+                   password : this.password
                 })
                 this.loading = true
                 this.$router.push({path: '/userHome'})
                 this.$message({type: 'success',message: '登录成功!',center: true})
-            }else if(this.form.username == 'admin'&&this.form.password == '123'){
-                 store.commit('login',{
-                    name:'管理员',
-                    academy:'自然科学院',
-                    major:'妖怪与精灵',
-                    professional:'精灵大学士',
-                    teachYear:'10年'
-                })//this.$store.commit('mutations方法名',值)
+            }else if(valid && this.form.username == 'admin'&&this.form.password == '123'){
+                store.commit('login',{
+                   username : this.form,
+                   password : this.password
+                })
                 this.loading = true
                 this.$router.push({path: '/adminHome'})
                 this.$message({type: 'success',message: '登录成功!',center: true})
-            }else{
-
-                 this.$message({type: 'warning',message: '登录失败!',center: true});
-            }   
+            } else {
+                this.$message({type: 'warning',message: '登录失败！请检查账户名和密码是否正确。',center: true});
+                return false;
+            }
+          });
         },
         // 重置
         resetForm(form) {

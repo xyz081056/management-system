@@ -2,7 +2,7 @@
   <div class="login">
         <fieldset class="login-form">
             <legend align="left">修改密码</legend>
-            <el-form  :rules="rules" ref="ruleForm" :model="form">
+            <el-form  :rules="rules" ref="form" :model="form">
                 <el-form-item label="原密码：" style="display:flex;" prop="oldpassword">
                     <el-input type="text" v-model="form.oldpassword" style="width:300px;padding:0"></el-input>
                 </el-form-item>
@@ -13,7 +13,7 @@
                     <el-input type="password" v-model="form.checkpassword" style="width:300px;padding:0px"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" style="margin-right:40px" @click="changPassword">确定</el-button>
+                    <el-button type="primary" style="margin-right:40px" @click="changPassword('form')">确定</el-button>
                     <el-button  @click="reHome">返回</el-button>
                 </el-form-item>
             </el-form>
@@ -59,11 +59,16 @@ data() {
       this.get()
    },
     methods:{
-       changPassword(){
-          if(this.form.newpassword == this.form.checkpassword != null){
-            this.$router.push({path: '/login'})
+       changPassword(form){
+         this.$refs[form].validate((valid) => {
+          if (valid) {
+            this.$router.push({path: '/'})
             this.$message({type: 'success',message: '密码更改成功，请重新登录！',center: true})
-           }
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+          });
        }, 
         get(){
         this.ids = this.$route.query.id

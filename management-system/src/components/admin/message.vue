@@ -4,7 +4,7 @@
       <div class="feature">
         <el-input
             placeholder="请输入内容"
-            v-model="input"
+            v-model="search"
             clearable
             style="width:200px">
         </el-input>
@@ -21,7 +21,7 @@
        <div>
             <el-table
                 ref="multipleTable"
-                :data="tableData"
+                :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
                 tooltip-effect="dark"
                 style="width: 100%"
                 @selection-change="handleSelectionChange">
@@ -48,7 +48,7 @@
                     fixed="right"
                     label="操作">
                         <template slot-scope="scope">
-                            <el-button type="info" size="small">查看</el-button>
+                            <el-button type="info" size="small" @click="look">查看</el-button>
                             <el-button @click="handleClick(scope.row)" type="warning" size="small">修改</el-button>
                             <el-button type="success" size="small">发布</el-button>
                             <el-button type="danger" size="small">删除</el-button>
@@ -71,7 +71,7 @@ export default {
         return {
           tableData: [{
             date: '2016-05-02',
-            name: '王小虎',
+            name: '王小',
             address: '上海市普陀区金沙江路 1518 弄'
           }, {
             date: '2016-05-04',
@@ -79,7 +79,7 @@ export default {
             address: '上海市普陀区金沙江路 1517 弄'
           }, {
             date: '2016-05-01',
-            name: '王小虎',
+            name: '虎',
             address: '上海市普陀区金沙江路 1519 弄'
           }, {
             date: '2016-05-01',
@@ -90,7 +90,7 @@ export default {
             name: '王小虎',
             address: '上海市普陀区金沙江路 1516 弄'
           }],
-          input:'',
+          search:'',
           multipleSelection: []
         }
       },
@@ -122,6 +122,9 @@ export default {
     handleClick(row) {
             console.log(row);
         },
+        look(){
+          // this.$store.state.userInfo.number = this.$store.state.userInfo - 1w
+        }
     }
 }
 </script>

@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import store from '../../store'
 export default {
   data(){
     return{
@@ -29,10 +30,24 @@ export default {
     }
   },
    created(){
-      this.get()
-      this.editInfo()
+      this.baseInfo()
+      
+   },
+   mounted(){
+     this.editInfo()
+     this.get()
    },
   methods:{
+    baseInfo(){
+     store.commit('Info',{
+                    name:'管理员',
+                    academy:'自然科学院',
+                    major:'妖怪与精灵',
+                    professional:'精灵大学士',
+                    teachYear:'10年',
+                    number:6
+                })//this.$store.commit('mutations方法名',值)
+    },
     editInfo(){
      let randomData = [{content:'我喜欢,春天的花,夏天的树,秋天的黄昏,以及每天的你'},
                        {content:'相逢太短,等不及茶凉,你若驻足,我陪你,走完风霜'},
@@ -44,7 +59,8 @@ export default {
       this.details = randomData[index].content
     },
     get(){
-       this.tableData = this.$store.state.userInfo
+       this.tableData = this.$store.state.baseInfo
+       console.log(this.tableData)
     },
   }
 

@@ -36,21 +36,35 @@
     </el-table>
     <el-button type="primary" icon="el-icon-edit" circle class="edit" @click="dialogFormVisible = true"></el-button>
   <el-dialog title="添加课程" :visible.sync="dialogFormVisible">
-    <el-form disabled>
-      <el-form-item label="选择时间" style="text-align:left;width:350px" :label-width='formLabelWidth'>
-        <el-input v-model="date" autocomplete="off"></el-input>
+    <el-form :model="form" :rules="rules" ref="form">
+      <el-form-item label="选择时间" style="text-align:left;width:350px" :label-width='formLabelWidth' prop="date">
+        <el-select v-model="form.date"  placeholder="请选择">
+          <el-option
+            v-for="item in options1"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
       </el-form-item>
-      <el-form-item label="选择节数" :label-width="formLabelWidth">
-        <el-input v-model="name" autocomplete="off" ></el-input>
+      <el-form-item label="选择节数" style="text-align:left;width:350px"  :label-width="formLabelWidth" prop="knot">
+        <el-select v-model="form.knot"  placeholder="请选择">
+          <el-option
+            v-for="item in options2"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
       </el-form-item>
-      <el-form-item label="课程内容" :label-width="formLabelWidth">
-        <el-input type="textarea" v-model="desc" :rows="5"></el-input>
+      <el-form-item label="课程内容" :label-width="formLabelWidth" prop="course">
+        <el-input type="textarea" v-model="form.course" :rows="5"></el-input>
       </el-form-item>
       
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="dialogFormVisible = false">取 消</el-button>
-      <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+      <el-button type="primary" @click="editCourse('form')">确 定</el-button>
     </div>
 </el-dialog>
   </div>
@@ -97,7 +111,7 @@ export default {
             one: '',
             two: '',
             three:'',
-            four:'',
+            four:'数学分析（高云柱） 文科楼101',
             five:'',
             six:''
           },{
@@ -107,26 +121,84 @@ export default {
             three:'',
             four:'',
             five:'',
-            six:''
+            six:'数学分析（高云柱） 文科楼101'
           }, {
             date: '周日',
-            one: '',
+            one: '数学分析（高云柱） 文科楼101',
             two: '',
             three:'',
             four:'',
             five:'',
             six:''
           }],
-        dialogFormVisible: false,
-        formLabelWidth: '120px',
-        date:'',
-        name:'',
-        desc:'',
+          options1: [{
+            value: 'Monday',
+            label: '周一'
+          }, {
+            value: 'Tuesday',
+            label: '周二'
+          }, {
+            value: 'Wednesday',
+            label: '周三'
+          }, {
+            value: 'Thursday',
+            label: '周四'
+          }, {
+            value: 'Friday',
+            label: '周五'
+          },{
+            value: 'Saturday',
+            label: '周六'
+          },{
+            value: 'Sunday',
+            label: '周日'
+          }],
+          options2: [{
+            value: 'firstSections',
+            label: '第一大节'
+          }, {
+            value: 'secondSections',
+            label: '第二大节'
+          }, {
+            value: 'thirdSections',
+            label: '第三大节'
+          }, {
+            value: 'fourthSections',
+            label: '第四大节'
+          }, {
+            value: 'fifthSections',
+            label: '晚一'
+          },{
+            value: 'sixthSections',
+            label: '晚二'
+          }],
+          rules:{
+            date:[{required: true, message: '请输入时间', trigger: 'change'}],
+            knot:[{required: true, message: '请输入节数', trigger: 'change'}],
+            course:[{required: true, message: '请输入课程，任教老师，上课地点', trigger: 'blur'}],            
+          },
+          dialogFormVisible: false,
+          formLabelWidth: '120px',
+          form:{
+            date:'',
+            knot:'',
+            course:'',
+          }
         }
       },
       methods:{
-        editInfo(){
-          
+        editCourse(form){
+          console.log(this.form)
+          this.$refs[form].validate((valid) => {
+          if (valid) {
+            this.dialogFormVisible = false
+            this.$message({type: 'success',message: '添加成功!',center: true})
+            this.form = ''
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
         }
       }
 

@@ -15,16 +15,15 @@ Vue.config.productionTip = false
 Vue.prototype.$store = store
 
 // 路由守卫配合vuex使用
-router.beforeEach((to,from,next) => {
-  if(store.state.userInfo || to.path === '/'){
-    next()
-  }else{
-    next({
-      path:'/'
-    })
-  }
-      
-})
+// router.beforeEach((to,from,next) => {
+//   if(store.state.userInfo || to.path === '/'){
+//     next()
+//   }else{
+//     next({
+//       path:'/'
+//     })
+//   }   
+// })
 
 /* eslint-disable no-new */
 new Vue({

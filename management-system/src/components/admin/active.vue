@@ -89,7 +89,6 @@
     <el-form-item label="活动内容" :label-width="formLabelWidth">
       <el-input type="textarea" v-model="desc" :rows="5"></el-input>
     </el-form-item>
-    
   </el-form>
   <div slot="footer" class="dialog-footer">
     <el-button @click="dialogFormVisible = false">取 消</el-button>

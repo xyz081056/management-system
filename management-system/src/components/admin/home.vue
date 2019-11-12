@@ -41,7 +41,7 @@
                             <i class="el-icon-message"></i>
                             <span slot="title"> 
                                 消息管理        
-                                <el-badge :value="number" v-if="flg">
+                                <el-badge :value="tableData.number" v-if="flg">
                                 </el-badge>          
                             </span>
                         </el-menu-item>
@@ -74,7 +74,6 @@ export default {
   data(){
     return{
       tableData:'',
-      number:'1',
       flg:false,
     }
   },
@@ -103,11 +102,17 @@ export default {
    },
    methods:{
     get(){
-      this.tableData = this.$store.state.userInfo
+      this.tableData = this.$store.state.baseInfo
     },
     num(){
-        if(this.number > 0){
+        if(this.tableData.number > 0){
             this.flg  = true
+             this.$notify({
+            title: '提示',
+            message: '你有'+ this.tableData.number+'条新消息',
+            // position: 'bottom-right',
+            duration: 10000
+        });
         }
     }
   },

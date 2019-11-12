@@ -26,9 +26,9 @@
                 </el-submenu>
             </el-submenu>
         </el-menu>
-        <el-input v-model="search" placeholder="请输入搜索关键字" style="width:20%;margin-left:5%"></el-input>
+        <el-input v-model="search" placeholder="请输入姓名搜索关键字" style="width:20%;margin-left:5%"></el-input>
         <div style="width:45%;margin-left:25%;">
-            <el-button type="primary">
+            <el-button type="primary" @click="dialogFormVisible=true">
                 <i class="el-icon-plus"></i>
                 <span>增加</span>
             </el-button>
@@ -44,13 +44,13 @@
     </div>
     <hr>
     <el-table
-        :data="tableData"
+        :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
         border
         height="470px"
         style="width: 100%">
         <el-table-column
         fixed="left"
-        prop="date"
+        prop="studyId"
         label="学号"
         width="130px">
         </el-table-column>
@@ -61,27 +61,27 @@
         width="100px">
         </el-table-column>
         <el-table-column
-        prop="province"
+        prop="major"
         label="专业"
         width="150px">
         </el-table-column>
         <el-table-column
-        prop="province"
+        prop="originOfStudent"
         label="生源地"
         width="100px">
         </el-table-column>
         <el-table-column
-        prop="city"
+        prop="address"
         label="家庭住址"
         width="360px">
         </el-table-column>
         <el-table-column
-        prop="address"
+        prop="identityId"
         label="身份证号码"
         width="200px">
         </el-table-column>
         <el-table-column
-        prop="zip"
+        prop="politicsStatus"
         label="政治面貌"
         width="100px">
         </el-table-column>
@@ -95,6 +95,69 @@
             </template>
         </el-table-column>
     </el-table>
+    <el-dialog title="添加课程" :visible.sync="dialogFormVisible">
+    <el-form :model="form" :rules="rules" ref="form">
+      <el-row>
+        <el-col :span="12">
+          <el-form-item label="学号" style="text-align:left;width:350px" :label-width='formLabelWidth' prop="studyId">
+            <el-input v-model="form.studyId" autocomplete="off"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="姓名" style="text-align:left;width:350px" :label-width='formLabelWidth' prop="name">
+            <el-input v-model="form.name" autocomplete="off"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      
+      <el-row>
+        <el-col :span="12">
+          <el-form-item label="专业班级" style="text-align:left;width:350px"  :label-width="formLabelWidth" prop="major">
+            <el-select v-model="form.major"  placeholder="请选择专业班级">
+              <el-option
+                v-for="item in options2"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="政治面貌" style="text-align:left;width:350px" :label-width='formLabelWidth' prop="politicsStatus">
+            <el-select v-model="form.politicsStatus"  placeholder="请选择政治面貌">
+              <el-option
+                v-for="item in options2"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      <el-row>
+        <el-col :span="12">
+          <el-form-item label="家庭住址" style="text-align:left;width:350px" :label-width='formLabelWidth' prop="address">
+            <el-input v-model="form.address" autocomplete="off"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="身份证号码" style="text-align:left;width:350px" :label-width='formLabelWidth' prop="identityId">
+            <el-input v-model="form.identityId" autocomplete="off"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-form-item label="生源地" style="text-align:left;width:350px" :label-width='formLabelWidth' prop="originOfStudent">
+        <el-input v-model="form.originOfStudent" autocomplete="off"></el-input>
+      </el-form-item>
+    </el-form>
+    <div slot="footer" class="dialog-footer">
+      <el-button @click="dialogFormVisible = false">取 消</el-button>
+      <el-button type="primary" @click="editCourse('form')">确 定</el-button>
+    </div>
+</el-dialog>
 </div>
 </template>
 
@@ -104,50 +167,69 @@
       return {
         activeIndex: '1',
         tableData: [{
-          date: '201612030124',
+          studyId: '201612030124',
           name: '天天',
-          province: '计算科学',
-          city: '四川省广元市朝天区陈家乡青坪村六组17号',
-          address: '510812199610081056',
-          zip: 200333
+          major: '计算科学',
+          originOfStudent:'吉林延边自治州',
+          address: '吉林省吉林市丰满区吉林大街幸福小区',
+          identityId: '210854419961008106',
+          politicsStatus: "共产党员"
         }, {
-          date: '2016-05-04',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1517 弄',
-          zip: 200333
+          studyId: '201612030124',
+          name: '岩峰',
+          major: '计算科学',
+          originOfStudent:'吉林延边自治州',
+          address: '吉林省吉林市丰满区吉林大街幸福小区',
+          identityId: '210854419961008106',
+          politicsStatus: "共产党员"
         }, {
-          date: '2016-05-01',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1519 弄',
-          zip: 200333
+          studyId: '201612030124',
+          name: '肖玲',
+          major: '计算科学',
+          originOfStudent:'吉林延边自治州',
+          address: '吉林省吉林市丰满区吉林大街幸福小区',
+          identityId: '210854419961008106',
+          politicsStatus: "共产党员"
         }, {
-          date: '2016-05-03',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1516 弄',
-          zip: 200333
+          studyId: '201612030124',
+          name: '艾文',
+          major: '计算科学',
+          originOfStudent:'吉林延边自治州',
+          address: '吉林省吉林市丰满区吉林大街幸福小区',
+          identityId: '210854419961008106',
+          politicsStatus: "共产党员"
         },{
-          date: '2016-05-02',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1518 弄',
-          zip: 200333
-        }, {
-          date: '2016-05-04',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1517 弄',
-          zip: 200333
+          studyId: '201612030124',
+          name: '莫琳',
+          major: '计算科学',
+          originOfStudent:'吉林延边自治州',
+          address: '吉林省吉林市丰满区吉林大街幸福小区',
+          identityId: '210854419961008106',
+          politicsStatus: "共产党员"
         }],
+        // 表单验证
+        rules:{
+            studyId:[{required: true, message: '请输入学号', trigger: 'blur'}],
+            originOfStudent:[{required: true, message: '请输入生源地', trigger: 'blur'}],
+            address:[{required: true, message: '请输入地址', trigger: 'blur'}],
+            identityId:[{required: true, message: '请输入身份证', trigger: 'blur'}],
+            politicsStatus:[{required: true, message: '请输入政治面貌', trigger: 'blur'}],
+            major:[{required: true, message: '请输入节数', trigger: 'change'}],
+            name:[{required: true, message: '请输入姓名', trigger: 'blur'}],            
+          },
+        form:{
+          studyId:'',
+          name:'',
+          major:'',
+          originOfStudent:'',
+          address:'',
+          identityId:'',
+          politicsStatus:'',
+        },
         search:'',
-        message:'请选择专业班级'
+        message:'请选择专业班级',
+        formLabelWidth: '120px',
+        dialogFormVisible:false
       }
     },
     methods: {
@@ -158,12 +240,29 @@
           this.message = keyPath
         // console.log(keyPath);
       },
+      editCourse(form){
+          console.log(this.form)
+          this.$refs[form].validate((valid) => {
+          if (valid) {
+            this.dialogFormVisible = false
+            this.$message({type: 'success',message: '添加成功!',center: true})
+            this.form = ''
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
+        }
     }
   }
 </script>
 <style>
+
 .el-menu--horizontal>.el-submenu .el-submenu__title{
   height:40px;
   line-height:40px;
+}
+.el-dialog{
+  width: 70%;
 }
 </style>
