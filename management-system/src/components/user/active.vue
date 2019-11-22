@@ -23,7 +23,7 @@
       <template slot="header" slot-scope>
         <el-input
           v-model="search"
-          size="mini"
+          style="margin-left:20px"
           placeholder="输入活动名称关键字搜索"/>
       </template>
       <template slot-scope="scope">

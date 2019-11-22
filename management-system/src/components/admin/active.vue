@@ -23,7 +23,7 @@
       align="right">
       <template slot="header" slot-scope="scope"  >
         <div style="display:flex;">
-          <el-button size="mini" type="danger" @click="dialogFormVisible = true">
+          <el-button size="mini" type="danger" @click="mode">
             <i class="el-icon-plus"></i>
             <span>增加</span>
           </el-button>
@@ -58,7 +58,7 @@
     style="text-align:right;margin:17px 10px 0 0">
   </el-pagination>
   <!-- 增加活动弹出框 -->
-  <el-dialog title="添加活动" :visible.sync="dialogFormVisible">
+  <el-dialog :title="title" :visible.sync="dialogFormVisible">
   <el-form>
     <el-form-item label="活动图片" style="text-align:left" :label-width='formLabelWidth'>
       <el-upload
@@ -140,17 +140,21 @@ data() {
         formLabelWidth: '120px',
         search: '',
         fileList:[],
-        abc:'',
+        abc:[],
         date:'',
         name:'',
         desc:'',
         id:4,
+        title:''
       }
     },
      methods: {
       //  修改
       handleEdit(index, row) {
         console.log(index, row);
+        this.dialogFormVisible = true
+        this.title = '修改活动'
+
       },
       // 发布
       handlePublish(index,row){
@@ -158,6 +162,8 @@ data() {
             if(item.id == row.id){
               this.$message({type: 'success',message: '发布成功!',center: true})
               this.abc = row.id
+              // this.abc.push(row.id)
+              // console.log(this.abc)
               }
           })
       },
@@ -183,6 +189,10 @@ data() {
         this.$message.warning(`当前限制选择 1 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
       },
       // 添加功能
+      mode(){
+        this.dialogFormVisible = true
+        this.title = '添加活动'
+      },
       add(index,row){
         let date = this.date
         let seperator1 = '-'

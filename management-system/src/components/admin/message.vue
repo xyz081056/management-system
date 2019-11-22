@@ -50,8 +50,8 @@
                         <template slot-scope="scope">
                             <el-button type="info" size="small" @click="look">查看</el-button>
                             <el-button @click="handleClick(scope.row)" type="warning" size="small">修改</el-button>
-                            <el-button type="success" size="small">发布</el-button>
-                            <el-button type="danger" size="small">删除</el-button>
+                            <el-button type="success" size="small" :disabled="scope.row.id == abc" @click="publish(scope.$index, scope.row)">发布</el-button>
+                            <el-button type="danger" size="small" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
                         </template>
                     </el-table-column>
             </el-table>
@@ -70,28 +70,34 @@ export default {
     data() {
         return {
           tableData: [{
+            id:1,
             date: '2016-05-02',
-            name: '王小',
-            address: '上海市普陀区金沙江路 1518 弄'
+            name: '天天',
+            address:'2019-8-12 15:32:45'
           }, {
+            id:2,
             date: '2016-05-04',
             name: '王小虎',
             address: '上海市普陀区金沙江路 1517 弄'
           }, {
+            id:3,
             date: '2016-05-01',
             name: '虎',
             address: '上海市普陀区金沙江路 1519 弄'
           }, {
+            id:4,
             date: '2016-05-01',
             name: '王小虎',
             address: '上海市普陀区金沙江路 1519 弄'
           },{
+            id:5,
             date: '2016-05-03',
             name: '王小虎',
             address: '上海市普陀区金沙江路 1516 弄'
           }],
           search:'',
-          multipleSelection: []
+          multipleSelection: [],
+          abc:''
         }
       },
       methods:{
@@ -102,12 +108,19 @@ export default {
         },
         // 批量删除
         delate(){
-                this.$confirm('此操作将永久这' + this.multipleSelection.length +'条消息，是否继续?', '提示', {
+            this.$confirm('此操作将永久这' + this.multipleSelection.length +'条消息，是否继续?', '提示', {
             confirmButtonText: '确定',
             cancelButtonText: '取消',
             type: 'warning',
             center: true
             }).then(() => {
+               var index = this.tableData.findIndex(item =>{
+                    // if(item.id == row.id){
+                      return true
+                    // }
+                })
+                console.log(index)
+            this.tableData.splice(index,this.multipleSelection.length)
             this.$message({
                 type: 'success',
                 message: '删除成功!'
@@ -119,11 +132,31 @@ export default {
             });
             });
         },
+        // 单个删除
+        handleDelete(index,row){
+          var index = this.tableData.findIndex(item =>{
+                    if(item.id == row.id){
+                      return true
+                    }
+                })
+                this.tableData.splice(index,1)
+                this.$message({type: 'success',message: '删除成功!',center: true})
+        },
     handleClick(row) {
             console.log(row);
         },
         look(){
           // this.$store.state.userInfo.number = this.$store.state.userInfo - 1w
+        },
+        publish(index,row){
+          this.tableData.findIndex(item =>{
+            if(item.id == row.id){
+              this.$message({type: 'success',message: '发布成功!',center: true})
+              this.abc = row.id
+              // this.abc.push(row.id)
+              // console.log(this.abc)
+              }
+          })
         }
     }
 }

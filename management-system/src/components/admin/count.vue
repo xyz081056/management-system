@@ -91,7 +91,7 @@
         width="150px">
             <template slot-scope="scope">
                 <el-button @click="handleClick(scope.row)" type="info" size="small">修改</el-button>
-                <el-button type="danger" size="small">删除</el-button>
+                <el-button type="danger" size="small"  @click="handleDelete(scope.$index, scope.row)">删除</el-button>
             </template>
         </el-table-column>
     </el-table>
@@ -115,7 +115,7 @@
           <el-form-item label="专业班级" style="text-align:left;width:350px"  :label-width="formLabelWidth" prop="major">
             <el-select v-model="form.major"  placeholder="请选择专业班级">
               <el-option
-                v-for="item in options2"
+                v-for="item in options1"
                 :key="item.value"
                 :label="item.label"
                 :value="item.value">
@@ -229,7 +229,33 @@
         search:'',
         message:'请选择专业班级',
         formLabelWidth: '120px',
-        dialogFormVisible:false
+        dialogFormVisible:false,
+        options1:[{
+            value:'大数据18级'
+          },{
+            value:'大数据19级'
+          },
+          {
+            value:'信息与计算科学16级'
+          },{
+            value:'信息与计算科学17级'
+          },{
+            value:'信息与计算科学18级'
+          },{
+            value:'信息与计算科学19级'
+          }
+          ],
+        options2:[
+          {
+            value:'党员'
+          },{
+            value:'共青团员'
+          },{
+            value:'中共预备党员'
+          },{
+            value:'其他'
+          }
+        ]
       }
     },
     methods: {
@@ -245,6 +271,7 @@
           this.$refs[form].validate((valid) => {
           if (valid) {
             this.dialogFormVisible = false
+            this.tableData.push(this.form)
             this.$message({type: 'success',message: '添加成功!',center: true})
             this.form = ''
           } else {
@@ -252,7 +279,17 @@
             return false;
           }
         });
-        }
+        },
+        handleDelete(index,row) {
+        console.log(row)
+        var index = this.tableData.findIndex(item =>{
+                    if(item.id == row.id){
+                      return true
+                    }
+                })
+                this.tableData.splice(index,1)
+                this.$message({type: 'success',message: '删除成功!',center: true})
+      },
     }
   }
 </script>

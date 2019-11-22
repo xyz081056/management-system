@@ -9,7 +9,7 @@
           <span>视频</span>
           <span>图片</span>
           <span>群组</span>
-          <el-input size="mini" prefix-icon="el-icon-search" placeholder="吧内搜索"></el-input>
+          <el-input size="mini" prefix-icon="el-icon-search" placeholder="吧内搜索" v-model="search"></el-input>
       </div>
       <div class="main">
           <div class="main-left">
@@ -22,11 +22,13 @@
             v-infinite-scroll="load"
             infinite-scroll-disabled="disabled">
                 <ul  style="list-style:none;margin-left:-20px">
-                    <li v-for="(i,index) in count" :key="index" style="text-align:left">
+                    <li v-for="(i,index) in count" :key="index" style="text-align:left" >
                         <div  v-for="(item,index) in date" :key="index" 
                         style="line-height:35px;text-indent:50px;height:35px;margin-bottom:20px">
                         <span style="color:black">标题：</span>
-                        <span style="color:blue;">{{ item.title }}</span>
+                        <span style="color:blue;" >
+                            {{ item.title }}
+                        </span>
                         <span>
                             <i class="el-icon-user-solid"></i>
                             <span>{{item.author}}</span>
@@ -45,6 +47,7 @@
 export default {
  data () {
       return {
+        search:'',
         count: 1,
         loading: false,
         date:[
