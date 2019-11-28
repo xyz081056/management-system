@@ -9,6 +9,7 @@
   <!-- 活动表格 -->
   <div class="main">
     <el-table
+    :highlight-current-row="true"
     :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
     style="width: 100%">
     <el-table-column
@@ -57,7 +58,7 @@
     :total="50"
     style="text-align:right;margin:17px 10px 0 0">
   </el-pagination>
-  <!-- 增加活动弹出框 -->
+  <!-- 增加和修改活动弹出框 -->
   <el-dialog :title="title" :visible.sync="dialogFormVisible">
   <el-form>
     <el-form-item label="活动图片" style="text-align:left" :label-width='formLabelWidth'>
@@ -154,7 +155,8 @@ data() {
         console.log(index, row);
         this.dialogFormVisible = true
         this.title = '修改活动'
-
+        this.name = row.name
+        this.desc = row.desc
       },
       // 发布
       handlePublish(index,row){
@@ -227,8 +229,8 @@ data() {
 }
 </script>
 
-<style lang="stylus" scoped>
-  .el-carousel__item h3 {
+<style >
+  .active .el-carousel__item h3 {
     color: #475669;
     font-size: 14px;
     opacity: 0.75;
@@ -236,21 +238,24 @@ data() {
     margin: 0;
   }
   
-  .el-carousel__item:nth-child(2n) {
+  .active .el-carousel__item:nth-child(2n) {
     background-color: #99a9bf;
   }
   
-  .el-carousel__item:nth-child(2n+1) {
+  .active .el-carousel__item:nth-child(2n+1) {
     background-color: #d3dce6;
   }
-  .main{
-      // background-color: red;
+  .active .main{
+       /* background-color: red; */
       height: 230px;
       width: 100%;
   }
-  .image{
-    height 220px
-    width 525px
+  .active .image{
+    height: 220px;
+    width :525px;
   }
- 
+.active .el-table__body tr.current-row>td{
+  background-color: rgba(155, 155, 155, 0.4) !important;
+  /* color: #f19944; */  /* 设置文字颜色，可以选择不设置 */
+}
 </style>

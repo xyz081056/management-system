@@ -8,7 +8,7 @@
             clearable
             style="width:200px">
         </el-input>
-        <el-button type="primary" size="small" style="margin-left: 50%;">
+        <el-button type="primary" size="small" style="margin-left: 50%;" @click="add">
                 <i class="el-icon-plus"></i>
                 <span>增加</span>
         </el-button>
@@ -32,15 +32,20 @@
                 <el-table-column
                 label="发布时间"
                 width="120">
-                <template slot-scope="scope">{{ scope.row.date }}</template>
+                <template slot-scope="scope">{{ scope.row.publishTime }}</template>
                 </el-table-column>
                 <el-table-column
                 prop="name"
+                label="发布人"
+                width="120">
+                </el-table-column>
+                <el-table-column
+                prop="title"
                 label="消息标题"
                 width="120">
                 </el-table-column>
                 <el-table-column
-                prop="address"
+                prop="creatTime"
                 label="创建时间"
                 show-overflow-tooltip>
                 </el-table-column>
@@ -55,6 +60,25 @@
                         </template>
                     </el-table-column>
             </el-table>
+            <!-- 添加弹框 -->
+            <el-dialog :title="title" :visible.sync="dialogFormVisible">
+                <el-form>
+                  <el-form-item label="发布人：" style="text-align:left" :label-width='formLabelWidth'>
+                    <el-input v-model="form.name" autocomplete="off" style="width:200px" placeholder="请输入姓名"></el-input>
+                  </el-form-item>
+                  <el-form-item label="消息标题：" :label-width="formLabelWidth">
+                    <el-input v-model="form.title" autocomplete="off" placeholder="请输入活动标题"></el-input>
+                  </el-form-item>
+                  <el-form-item label="消息内容：" :label-width="formLabelWidth">
+                    <el-input type="textarea" v-model="form.desc" :rows="5" placeholder="请输入具体活动内容"></el-input>
+                  </el-form-item>
+                </el-form>
+                <div slot="footer" class="dialog-footer">
+                  <el-button @click="dialogFormVisible = false">取 消</el-button>
+                  <el-button type="primary" @click="commit()">确 定</el-button>
+                </div>
+              </el-dialog>
+              <!-- 分页 -->
             <el-pagination
                 background
                 layout="prev, pager, next"
@@ -66,45 +90,106 @@
 </template>
 
 <script>
+import store from '../../store'
 export default {
     data() {
         return {
           tableData: [{
             id:1,
-            date: '2016-05-02',
+            publishTime: '2016-05-02',
             name: '天天',
-            address:'2019-8-12 15:32:45'
-          }, {
-            id:2,
-            date: '2016-05-04',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1517 弄'
-          }, {
-            id:3,
-            date: '2016-05-01',
-            name: '虎',
-            address: '上海市普陀区金沙江路 1519 弄'
-          }, {
-            id:4,
-            date: '2016-05-01',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1519 弄'
+            title:'天天开心',
+            desc:'',
+            creatTime:'2019-8-12 15:32:45'
           },{
-            id:5,
-            date: '2016-05-03',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1516 弄'
+             id:2,
+            publishTime: '2016-07-02',
+            name: '辅导员',
+            title:'周院会',
+            desc:'',
+            creatTime:'2019-8-12 15:32:45'
+          },{
+             id:3,
+            publishTime: '暂未发布',
+            name: '信息系主任',
+            title:'上机考试',
+            desc:'',
+            creatTime:'2019-11-12 15:32:45'
+          },{
+            id:4,
+            publishTime: '暂未发布',
+            name: '数学系主任',
+            title:'数学建模活动',
+            desc:'',
+            creatTime:'2019-12-12 15:32:45'
           }],
           search:'',
           multipleSelection: [],
-          abc:''
+          abc:'',
+          dialogFormVisible:false,
+          title:'',
+          formLabelWidth: '120px',
+          form:{
+            title:'',
+            name:'',
+            desc:'',
+            creatTime:'',
+            publishTime: '暂未发布',
+          },
+          id:'',//用于判断是添加还是修改
         }
+      },
+      beforeCreate(){
+        this.message()
       },
       methods:{
         //   获取复选框所选对象的值,并且放到一个数组里
         handleSelectionChange(val) {
             this.multipleSelection = val;
             console.log(this.multipleSelection)
+        },
+        // 添加
+        add(){
+          this.dialogFormVisible = true
+          this.title = '添加新消息'
+          this.id = 1
+        },
+        commit(){
+          if(this.id == 1){
+            this.dialogFormVisible = false
+            this.$message({type: 'success',message: '添加成功!',center:true});
+              let date = new Date()
+              let seperator1 = '-'
+              let seperator2 = ':'
+              let year = date.getFullYear()
+              let month = date.getMonth() + 1
+              let strDate = date.getDate()
+              let week = date.getDay() 
+              let hour =date.getHours()
+              let m = date.getMinutes()
+              if (month >= 1 && month <= 9) {
+                  month = '0' + month
+              }
+              if (strDate >= 0 && strDate <= 9) {
+                  strDate = '0' + strDate
+              }
+              if (hour >= 0 && hour <= 9) {
+                  hour = '0' + hour
+              }
+              if (m >= 0 && m <= 9) {
+                  m = '0' + m
+              }
+              let currentdate = year + seperator1 + month + seperator1 + strDate + '  ' + hour + seperator2 + m +seperator2 + '00'
+              this.form.creatTime = currentdate
+              this.tableData.push(this.form)
+              this.form = ''
+          }else if(this.id == 2){
+            this.dialogFormVisible = false
+           this.$message({type: 'success',message: '修改成功!',center:true});
+          }else{
+            this.dialogFormVisible = false
+            this.$message({type: 'success',message: '查看成功!',center:true});
+          }
         },
         // 批量删除
         delate(){
@@ -142,19 +227,32 @@ export default {
                 this.tableData.splice(index,1)
                 this.$message({type: 'success',message: '删除成功!',center: true})
         },
-    handleClick(row) {
-            console.log(row);
+        handleClick(row) {
+            this.dialogFormVisible = true
+            this.title = '修改新消息'
+            this.id = 2
         },
+        // 查看
         look(){
-          // this.$store.state.userInfo.number = this.$store.state.userInfo - 1w
+         this.dialogFormVisible = true
+         this.title = '查看新消息'
+         this.id = 3
+        //  this.number = this.number - 1
         },
+        message(){
+           store.commit('message',{
+                    number:'10'
+                })
+          },
+        // 发布
         publish(index,row){
           this.tableData.findIndex(item =>{
             if(item.id == row.id){
               this.$message({type: 'success',message: '发布成功!',center: true})
               this.abc = row.id
+              
               // this.abc.push(row.id)
-              // console.log(this.abc)
+              console.log(this.abc)
               }
           })
         }

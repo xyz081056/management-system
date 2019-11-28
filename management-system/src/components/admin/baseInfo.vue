@@ -45,7 +45,6 @@ export default {
                     major:'妖怪与精灵',
                     professional:'精灵大学士',
                     teachYear:'10年',
-                    number:6
                 })//this.$store.commit('mutations方法名',值)
     },
     editInfo(){
@@ -60,7 +59,7 @@ export default {
     },
     get(){
        this.tableData = this.$store.state.baseInfo
-       console.log(this.tableData)
+      //  console.log(this.tableData)
     },
   }
 
@@ -70,7 +69,7 @@ export default {
 <style lang="stylus" scoped>
 .main{
   margin-top:20px; 
-  height: 520px;
+  height: 530px;
   width: 100%;
   position: relative;
   border-radius: 3px

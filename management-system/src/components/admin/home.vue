@@ -102,7 +102,8 @@ export default {
    },
    methods:{
     get(){
-      this.tableData = this.$store.state.baseInfo
+      this.tableData = this.$store.state.number
+      console.log(this.tableData)
     },
     num(){
         if(this.tableData.number > 0){
@@ -111,7 +112,7 @@ export default {
             title: '提示',
             message: '你有'+ this.tableData.number+'条新消息',
             // position: 'bottom-right',
-            duration: 10000
+            duration: 3000
         });
         }
     }

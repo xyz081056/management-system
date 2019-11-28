@@ -4,6 +4,9 @@ export default{
     },
     Info(state,v){
         state.baseInfo = v
+    },
+    message(state,v){
+        state.number = v
     }
 }
 // store.commit是修改数据

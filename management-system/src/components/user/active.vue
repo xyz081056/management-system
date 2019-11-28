@@ -20,7 +20,7 @@
     </el-table-column>
     <el-table-column
       align="right">
-      <template slot="header" slot-scope>
+      <template slot="header" slot-scope="scope">
         <el-input
           v-model="search"
           style="margin-left:20px"

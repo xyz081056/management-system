@@ -7,12 +7,14 @@ import router from './router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import store from './store'
+import utils from '@/util/util.js'
 
 Vue.use(ElementUI)
 Vue.use(Vuex)
 Vue.config.productionTip = false
 
 Vue.prototype.$store = store
+Vue.prototype.utils = utils
 
 // 路由守卫配合vuex使用
 // router.beforeEach((to,from,next) => {

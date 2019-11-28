@@ -75,7 +75,7 @@ export default {
 <style lang="stylus" scoped>
 .main{
   margin-top:20px; 
-  height: 520px;
+  height: 530px;
   width: 100%;
   position: relative;
   border-radius: 3px
