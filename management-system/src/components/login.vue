@@ -1,5 +1,5 @@
 <template>
-  <div class="login" >
+  <div class="login">
       <fieldset class="login-form" v-loading="loading"
     element-loading-text="拼命加载中"
     element-loading-spinner="el-icon-loading">
@@ -31,7 +31,7 @@ data() {
                 password:'',
             },
             rules: {
-                username: [{ required: true, message: '请输入账号即学号或者教师编号', trigger: 'blur' }],
+                username: [{ required: true, message: '请输入账号即学号或者管理员账号', trigger: 'blur' }],
                 password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
             }
         }
@@ -39,7 +39,7 @@ data() {
     methods:{
         submit(form){
             this.$refs[form].validate((valid) => {
-            if (valid && this.form.username == 'user' && this.form.password == '123') {
+            if (valid && this.form.username == '201612030124' && this.form.password == '123') {
                 store.commit('login',{
                    username : this.form,
                    password : this.password
@@ -47,7 +47,8 @@ data() {
                 this.loading = true
                 this.$router.push({path: '/userHome'})
                 this.$message({type: 'success',message: '登录成功!',center: true})
-            }else if(valid && this.form.username == 'admin'&&this.form.password == '123'){
+            }
+            else if(valid && this.form.username == 'admin'&&this.form.password == '123'){
                 store.commit('login',{
                    username : this.form,
                    password : this.password
@@ -55,7 +56,10 @@ data() {
                 this.loading = true
                 this.$router.push({path: '/adminHome'})
                 this.$message({type: 'success',message: '登录成功!',center: true})
-            } else {
+            } else if(this.form.username == ''|| this.form.password == ''){
+                this.$message({type: 'warning',message: '登录失败！请同时输入账号和密码。',center: true});
+                return false;
+            }else {
                 this.$message({type: 'warning',message: '登录失败！请检查账户名和密码是否正确。',center: true});
                 return false;
             }
@@ -80,7 +84,7 @@ data() {
     background-color :#FFFFFF;
     text-align :center;
     position :absolute;
-    left : 31%;
+    left : 35%;
     width :400px;
 }
 

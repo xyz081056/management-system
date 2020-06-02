@@ -47,10 +47,15 @@
         :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
         border
         height="470px"
-        style="width: 100%">
+        style="width: 100%"
+        @selection-change="handleSelectionChange">
+        <el-table-column
+        type="selection"
+        width="55">
+        </el-table-column>
         <el-table-column
         fixed="left"
-        prop="studyId"
+        prop="id"
         label="学号"
         width="130px">
         </el-table-column>
@@ -61,27 +66,32 @@
         width="100px">
         </el-table-column>
         <el-table-column
-        prop="major"
-        label="专业"
+        prop="phone"
+        label="电话"
         width="150px">
         </el-table-column>
         <el-table-column
-        prop="originOfStudent"
+        prop="email"
+        label="邮箱"
+        width="150px">
+        </el-table-column>
+        <el-table-column
+        prop="address.city"
         label="生源地"
         width="100px">
         </el-table-column>
         <el-table-column
-        prop="address"
+        prop="address.street"
         label="家庭住址"
         width="360px">
         </el-table-column>
         <el-table-column
-        prop="identityId"
+        prop="address.zipcode"
         label="身份证号码"
         width="200px">
         </el-table-column>
         <el-table-column
-        prop="politicsStatus"
+        prop="company.name"
         label="政治面貌"
         width="100px">
         </el-table-column>
@@ -95,7 +105,7 @@
             </template>
         </el-table-column>
     </el-table>
-    <el-dialog title="添加课程" :visible.sync="dialogFormVisible">
+    <el-dialog :title="title" :visible.sync="dialogFormVisible">
     <el-form :model="form" :rules="rules" ref="form">
       <el-row>
         <el-col :span="12">
@@ -165,48 +175,69 @@
   export default {
     data() {
       return {
+        title:'添加信息',
         activeIndex: '1',
-        tableData: [{
-          studyId: '201612030124',
+        tableData1:[{
+          id: '201612030121',
           name: '天天',
-          major: '计算科学',
-          originOfStudent:'吉林延边自治州',
-          address: '吉林省吉林市丰满区吉林大街幸福小区',
-          identityId: '210854419961008106',
-          politicsStatus: "共产党员"
-        }, {
-          studyId: '201612030124',
-          name: '岩峰',
-          major: '计算科学',
-          originOfStudent:'吉林延边自治州',
-          address: '吉林省吉林市丰满区吉林大街幸福小区',
-          identityId: '210854419961008106',
-          politicsStatus: "共产党员"
-        }, {
-          studyId: '201612030124',
-          name: '肖玲',
-          major: '计算科学',
-          originOfStudent:'吉林延边自治州',
-          address: '吉林省吉林市丰满区吉林大街幸福小区',
-          identityId: '210854419961008106',
-          politicsStatus: "共产党员"
-        }, {
-          studyId: '201612030124',
-          name: '艾文',
-          major: '计算科学',
-          originOfStudent:'吉林延边自治州',
-          address: '吉林省吉林市丰满区吉林大街幸福小区',
-          identityId: '210854419961008106',
-          politicsStatus: "共产党员"
-        },{
-          studyId: '201612030124',
-          name: '莫琳',
-          major: '计算科学',
-          originOfStudent:'吉林延边自治州',
-          address: '吉林省吉林市丰满区吉林大街幸福小区',
-          identityId: '210854419961008106',
-          politicsStatus: "共产党员"
-        }],
+          phone: '15898634572',
+          email:'158634597@qq.com',
+          address: {
+            street:'吉林省吉林市丰满区吉林大街幸福小区',
+            city:'吉林-吉林',
+            zipcode:'201569852468752468'
+            },
+          company:{
+            name:'共产党员'
+            },
+          },
+
+          {
+          id: '201612030122',
+          name: '宋锦瑟',
+          phone: '15898634572',
+          email:'158634597@qq.com',
+          address: {
+            street:'吉林省吉林市丰满区吉林大街幸福小区',
+            city:'吉林-吉林',
+            zipcode:'201569852468752468'
+            },
+          company:{
+            name:'共产党员'
+            },
+          },
+          
+          {
+          id: '201612030123',
+          name: '陈华年',
+          phone: '15898634572',
+          email:'158634597@qq.com',
+          address: {
+            street:'吉林省吉林市丰满区吉林大街幸福小区',
+            city:'吉林-吉林',
+            zipcode:'201569852468752468'
+            },
+          company:{
+            name:'共产党员'
+            },
+          },
+          
+          {
+          id: '201612030124',
+          name: '牧鑫',
+          phone: '15898634572',
+          email:'158634597@qq.com',
+          address: {
+            street:'吉林省吉林市丰满区吉林大街幸福小区',
+            city:'吉林-吉林',
+            zipcode:'201569852468752468'
+            },
+          company:{
+            name:'共产党员'
+            },
+          },],
+        tableData: [
+          ],
         // 表单验证
         rules:{
             studyId:[{required: true, message: '请输入学号', trigger: 'blur'}],
@@ -227,7 +258,7 @@
           politicsStatus:'',
         },
         search:'',
-        message:'请选择专业班级',
+        message:'请选择专业年级',
         formLabelWidth: '120px',
         dialogFormVisible:false,
         options1:[{
@@ -259,12 +290,30 @@
       }
     },
     methods: {
+      // 调用接口获取信息
+      // getUserInfo() {
+      //   this.$axios.get('http://jsonplaceholder.typicode.com/users').then(res => {
+      //   // console.log(res)
+      //       this.tableData1 = res.data
+      //   })
+      // },
       handleClick(row) {
         console.log(row);
+        this.dialogFormVisible = true
+        this.form = row
+        this.title = '修改信息'
       },
       handleSelect(keyPath) {
           this.message = keyPath
-        // console.log(keyPath);
+        // console.log(keyPath,typeof(keyPath));
+        if(keyPath == '信息与计算科学2016级'){
+         this.$axios.get('http://jsonplaceholder.typicode.com/users').then(res => {
+        // console.log(res)
+            this.tableData = res.data
+        })
+        }else{
+          this.tableData = this.tableData1
+        }
       },
       editCourse(form){
           console.log(this.form)
@@ -290,7 +339,15 @@
                 this.tableData.splice(index,1)
                 this.$message({type: 'success',message: '删除成功!',center: true})
       },
-    }
+         handleSelectionChange(val) {
+            this.multipleSelection = val;
+            console.log(this.multipleSelection)
+      },
+    },
+    // created(){
+    //   this.handleSelect()
+    //   // this.getUserInfo()
+    // }
   }
 </script>
 <style>

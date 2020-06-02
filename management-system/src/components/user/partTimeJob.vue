@@ -12,24 +12,24 @@
             <el-submenu index="">
                 <template slot="title">{{ message }}</template>
                 <el-submenu index="1">
-                    <template slot="title">大一</template>
-                    <el-menu-item index="大一上学期">上学期</el-menu-item>
-                    <el-menu-item index="大一下学期">下学期</el-menu-item>
+                    <template slot="title">家教</template>
+                    <el-menu-item index="家教文化类">文化类</el-menu-item>
+                    <el-menu-item index="家教艺体类">艺体类</el-menu-item>
                 </el-submenu>
                 <el-submenu index="2">
-                    <template slot="title">大二</template>
-                    <el-menu-item index="大二上学期">上学期</el-menu-item>
-                    <el-menu-item index="大二下学期">下学期</el-menu-item>
+                    <template slot="title">托管</template>
+                    <el-menu-item index="托管全托">全托</el-menu-item>
+                    <el-menu-item index="托管半托">半托</el-menu-item>
                 </el-submenu>
                 <el-submenu index="3">
-                    <template slot="title">大三</template>
-                    <el-menu-item index="大三上学期">上学期</el-menu-item>
-                    <el-menu-item index="大三下学期">下学期</el-menu-item>
+                    <template slot="title">小时工</template>
+                    <el-menu-item index="小时工服务员">服务员</el-menu-item>
+                    <el-menu-item index="小时工地推">地推</el-menu-item>
                 </el-submenu>
                 <el-submenu index="4">
-                    <template slot="title">大四</template>
-                    <el-menu-item index="大四上学期">上学期</el-menu-item>
-                    <el-menu-item index="大四下学期">下学期</el-menu-item>
+                    <template slot="title">网络兼职</template>
+                    <el-menu-item index="好评刷单">刷单</el-menu-item>
+                    <el-menu-item index="直播带货">直播</el-menu-item>
                 </el-submenu>
             </el-submenu>
         </el-menu>
@@ -50,8 +50,7 @@
         <hr>
         <el-table
             height="450"
-            :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()) || 
-            data.subject.toLowerCase().includes(search.toLowerCase()))"
+            :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
             style="width: 100%">
             <el-table-column
             label="职位"
@@ -59,26 +58,26 @@
             </el-table-column>
             <el-table-column
             label="时间"
-            prop="subject">
+            prop="time">
             </el-table-column>
             <el-table-column
             label="薪资"
-            prop="subject">
+            prop="salary">
             </el-table-column>
             <el-table-column
             label="地点"
-            prop="subject">
+            prop="place">
             </el-table-column>
             <el-table-column
             label="联系方式"
-            prop="subject">
+            prop="phone">
             </el-table-column>
             <el-table-column
             fixed="right">
             <template slot-scope="scope">
                 <el-button
                 size="mini"
-                @click="handleEdit(scope.$index, scope.row)">申请职位</el-button>
+                @click="apply(scope.$index, scope.row)">申请职位</el-button>
             </template>
             </el-table-column>
         </el-table>
@@ -90,17 +89,29 @@ export default {
 data(){
     return{
         tableData: [{
-          name: '王虎',
-          subject:'数学分析'
-        }, {
-          name: '王小虎',
-          subject:'高等代数'
-        }, {
-          name: '王小虎',
-          subject:'常微分'
-        }, {
-          name: '王小虎',
-          subject:'密码学'
+          name: '服务员',
+          time:'每天17:00-22:00',
+          salary:'10元/h',
+          place:'江北区',
+          phone:'14568235489'
+        },{
+          name: '高三数学家教',
+          time:'周六10:00-12:00',
+          salary:'50元/h',
+          place:'江北区',
+          phone:'14568235489'
+        },{
+          name: '初中英语家教',
+          time:'周一到周五18:00-20:00',
+          salary:'40元/h',
+          place:'江北区',
+          phone:'14568235489'
+        },{
+          name: '舞蹈老师',
+          time:'周日10:00-12:00',
+          salary:'100元/h',
+          place:'江北区',
+          phone:'14568235489'
         }],
         search: '',
         message:'请选择兼职类型',
@@ -113,6 +124,9 @@ data(){
             keyPath.forEach(item => {
                 this.message = item
             });
+      },
+      apply(){
+          this.$message({type: 'success',message: '申请成功!',center:true});
       },
     }
 }

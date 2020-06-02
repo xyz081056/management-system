@@ -27,18 +27,19 @@
                 width="55">
                 </el-table-column>
                 <el-table-column
+                prop="creatTime"
                 label="发布时间"
-                width="120">
-                <template slot-scope="scope">{{ scope.row.date }}</template>
+                width="200">
+                <!-- <template slot-scope="scope">{{ scope.row.date }}</template> -->
+                </el-table-column>
+                <el-table-column
+                prop="title"
+                label="消息标题"
+                width="200">
                 </el-table-column>
                 <el-table-column
                 prop="name"
-                label="消息标题"
-                width="120">
-                </el-table-column>
-                <el-table-column
-                prop="address"
-                label="创建时间"
+                label="发布人"
                 show-overflow-tooltip>
                 </el-table-column>
                 <el-table-column
@@ -65,25 +66,17 @@ export default {
     data() {
         return {
           tableData: [{
-            date: '2016-05-02',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          }, {
-            date: '2016-05-04',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1517 弄'
-          }, {
-            date: '2016-05-01',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1519 弄'
-          }, {
-            date: '2016-05-01',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1519 弄'
+            id:1,
+            name: '天天',
+            title:'天天开心',
+            desc:'jgdsljgjxlxkfglckbi',
+            creatTime:'2019-8-12 15:32:45'
           },{
-            date: '2016-05-03',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1516 弄'
+             id:2,
+            name: '辅导员',
+            title:'周院会',
+            desc:'vjidioxihrhhfidj',
+            creatTime:'2019-8-12 15:32:45'
           }],
           input:'',
           multipleSelection: []
@@ -97,7 +90,7 @@ export default {
         },
         // 批量删除
         delate(){
-                this.$confirm('此操作将永久这' + this.multipleSelection.length +'条消息，是否继续?', '提示', {
+            this.$confirm('此操作将永久这' + this.multipleSelection.length +'条消息，是否继续?', '提示', {
             confirmButtonText: '确定',
             cancelButtonText: '取消',
             type: 'warning',
@@ -115,8 +108,22 @@ export default {
             });
         },
         look(){
+          this.postRequest('/users').then(res => {//本周搜索
+                          if (res && res.status == 200) {
+                      this.messages = res.data.obj.messageList;
+                    //   console.log(this.messages)
+                      this.$message({type: 'success', message: "查询成功！"});
+                          }
+                      })
+        // this.$axios.get('http://jsonplaceholder.typicode.com/users').then(res => {
+        // console.log(res)
+        //     this.tableData = res.data
+        // })
         }
-    }
+    },
+    // mounted(){
+    //   this.look()
+    // }
 }
 </script>
 

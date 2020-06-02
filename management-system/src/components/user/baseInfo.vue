@@ -23,6 +23,13 @@
       <div class="randomContent">
         <p>{{ details }}</p>
       </div>
+      <div class="music">
+        <div>
+          <p>今日热点</p>
+        </div>
+        <video src="" style="height:130px;width:100%" controls="controls"></video>
+        <!-- <audio style="width:100%" src="#" controls="controls"></audio> -->
+      </div>
     </div>
   </div>
 </template>
@@ -51,7 +58,7 @@ export default {
                     major:'妖怪与精灵',
                     professional:'精灵大学士',
                     teachYear:'10年',
-                    number:12
+                    number:2
                 })//this.$store.commit('mutations方法名',值)
     },
     editInfo(){
@@ -117,17 +124,26 @@ export default {
 }
 .randomContent{
   height 200px
-  width 100%
+  width 70%
+  // background-color red
   position: absolute;
-  top:220px
+  top:320px
+  left 30%
 }
 .randomContent p{
-  line-height 110px
-  font-size 60px
-  text-align left
-  text-indent 120px
+  line-height 80px
+  font-size 40px
+  text-align left 
+  text-indent 80px
   text-shadow: 5px 5px 5px #FF0000;
   font-style:italic
   color skyblue 
+}
+.music{
+  height 200px
+  width 27%
+  // background-color red
+  position: absolute;
+  top:250px
 }
 </style>

@@ -35,7 +35,7 @@
         </el-table-column>
     </el-table>
     <el-button type="primary" icon="el-icon-edit" circle class="edit" @click="dialogFormVisible = true"></el-button>
-  <el-dialog title="添加课程" :visible.sync="dialogFormVisible">
+  <el-dialog title="添加/更新课程" :visible.sync="dialogFormVisible">
     <el-form :model="form" :rules="rules" ref="form">
       <el-form-item label="选择时间" style="text-align:left;width:350px" :label-width='formLabelWidth' prop="date">
         <el-select v-model="form.date"  placeholder="请选择">
@@ -192,7 +192,7 @@ export default {
           this.$refs[form].validate((valid) => {
           if (valid) {
             this.dialogFormVisible = false
-            this.$message({type: 'success',message: '添加成功!',center: true})
+            this.$message({type: 'success',message: '操作成功!',center: true})
             this.form = ''
           } else {
             console.log('error submit!!');

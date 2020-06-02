@@ -21,7 +21,7 @@
        <div>
             <el-table
                 ref="multipleTable"
-                :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
+                :data="tableData.filter(data => !search || data.title.toLowerCase().includes(search.toLowerCase()))"
                 tooltip-effect="dark"
                 style="width: 100%"
                 @selection-change="handleSelectionChange">
@@ -30,7 +30,7 @@
                 width="55">
                 </el-table-column>
                 <el-table-column
-                label="发布时间"
+                label="发布状态"
                 width="120">
                 <template slot-scope="scope">{{ scope.row.publishTime }}</template>
                 </el-table-column>
@@ -53,7 +53,7 @@
                     fixed="right"
                     label="操作">
                         <template slot-scope="scope">
-                            <el-button type="info" size="small" @click="look">查看</el-button>
+                            <el-button type="info" size="small" @click="look(scope.row)">查看</el-button>
                             <el-button @click="handleClick(scope.row)" type="warning" size="small">修改</el-button>
                             <el-button type="success" size="small" :disabled="scope.row.id == abc" @click="publish(scope.$index, scope.row)">发布</el-button>
                             <el-button type="danger" size="small" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
@@ -96,17 +96,17 @@ export default {
         return {
           tableData: [{
             id:1,
-            publishTime: '2016-05-02',
+            publishTime: '已发布',
             name: '天天',
             title:'天天开心',
-            desc:'',
+            desc:'jgdsljgjxlxkfglckbi',
             creatTime:'2019-8-12 15:32:45'
           },{
              id:2,
-            publishTime: '2016-07-02',
+            publishTime: '已发布',
             name: '辅导员',
             title:'周院会',
-            desc:'',
+            desc:'vjidioxihrhhfidj',
             creatTime:'2019-8-12 15:32:45'
           },{
              id:3,
@@ -153,6 +153,7 @@ export default {
           this.dialogFormVisible = true
           this.title = '添加新消息'
           this.id = 1
+        
         },
         commit(){
           if(this.id == 1){
@@ -233,10 +234,11 @@ export default {
             this.id = 2
         },
         // 查看
-        look(){
+        look(row){
          this.dialogFormVisible = true
          this.title = '查看新消息'
          this.id = 3
+         this.form = row
         //  this.number = this.number - 1
         },
         message(){
@@ -250,7 +252,7 @@ export default {
             if(item.id == row.id){
               this.$message({type: 'success',message: '发布成功!',center: true})
               this.abc = row.id
-              
+              row.publishTime = '已发布'
               // this.abc.push(row.id)
               console.log(this.abc)
               }

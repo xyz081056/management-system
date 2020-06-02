@@ -49,7 +49,7 @@
                 </div>
                 </el-aside>
             <el-container>
-                <el-main>
+                <el-main style="background-color:rgba(87,250,255,0.05)">
                     <el-breadcrumb separator-class="el-icon-arrow-right">
                         <el-breadcrumb-item :to="{ path: '/Home' }">当前位置</el-breadcrumb-item>
                         <el-breadcrumb-item v-text="this.$router.currentRoute.name"></el-breadcrumb-item>

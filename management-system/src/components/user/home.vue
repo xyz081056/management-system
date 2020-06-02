@@ -37,18 +37,18 @@
                             <i class="el-icon-collection"></i>
                             <span slot="title">教师评价</span>
                         </el-menu-item>
-                        <el-menu-item index="/user/trade">
+                        <!-- <el-menu-item index="/user/trade">
                             <i class="el-icon-shopping-cart-2"></i>
                             <span slot="title">闲置交易</span>
-                        </el-menu-item>
+                        </el-menu-item> -->
                         <el-menu-item index="/user/part-time">
                             <i class="el-icon-coffee-cup"></i>
                             <span slot="title">学生兼职</span>
                         </el-menu-item>
-                        <el-menu-item index="/user/attachBar">
+                        <!-- <el-menu-item index="/user/attachBar">
                             <i class="el-icon-chat-dot-square"></i>
                             <span slot="title">学生贴吧</span>
-                        </el-menu-item>
+                        </el-menu-item> -->
                         <el-menu-item index="/user/message">
                             <i class="el-icon-message"></i>
                             <span slot="title"> 

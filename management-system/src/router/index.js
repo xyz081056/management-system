@@ -13,10 +13,11 @@ import userbaseInfo from '@/components/user/baseInfo'
 import userCourse from '@/components/user/course'
 import userActive from '@/components/user/active'
 import teachAppraise from '@/components/user/teachAppraise'
-import trade from '@/components/user/trade'
 import partTimeJob from '@/components/user/partTimeJob'
 import userMessage from '@/components/user/message'
-import attachBar from '@/components/user/attach'
+
+// import attachBar from '@/components/user/attach'
+// import trade from '@/components/user/trade'
 
 // 待解决问题 1、路由跳转过程中要对参数进行加密
 // 待解决问题 2、路由拦截，必须经过登录才能实现页面的访问 
@@ -39,6 +40,7 @@ export default new Router({
       path: '/repassword',
       component: repassword
     },
+    // 管理员端
     {
       path:'/adminHome',
       name:'管理员端',
@@ -76,6 +78,7 @@ export default new Router({
         },
       ]
     },
+    // 用户端
     {
       path:'/userHome',
       name:'用户端',
@@ -105,20 +108,23 @@ export default new Router({
           path:'/user/teachAppraise',
           name:'教师评价',
           component:teachAppraise
-        },{
-          path:'/user/trade',
-          name:'闲置交易',
-          component:trade
-        },{
+        },
+        // {
+        //   path:'/user/trade',
+        //   name:'闲置交易',
+        //   component:trade
+        // },
+        {
           path:'/user/part-time',
           name:'学生兼职',
           component:partTimeJob
         },
+        // {
+        //   path:'/user/attachBar',
+        //   name:'学生贴吧',
+        //   component:attachBar
+        // },
         {
-          path:'/user/attachBar',
-          name:'学生贴吧',
-          component:attachBar
-        },{
           path:'/user/message',
           name:'消息通知',
           component:userMessage
